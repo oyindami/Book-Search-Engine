@@ -13,7 +13,7 @@ const resolvers = {
         return foundUser;
       }
 
-      throw new AuthenticationError("Not logged in");
+      throw new AuthenticationError("Not signed in try again");
     },
   },
 
@@ -28,13 +28,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError("Wrong INFO");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError("Wrong INFO!");
       }
 
       const token = signToken(user);
